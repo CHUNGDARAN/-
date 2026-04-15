@@ -1,70 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scan to Listen</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #111;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-    .card {
-      width: min(420px, 92vw);
-      padding: 24px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-    h1 {
-      margin: 0 0 10px;
-      font-size: 1.6rem;
-    }
-    p {
-      margin: 0 0 18px;
-      line-height: 1.5;
-      color: rgba(255,255,255,0.85);
-    }
-    audio {
-      width: 100%;
-      margin-top: 8px;
-    }
-    .hint {
-      margin-top: 14px;
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.7);
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Music Player</title>
 </head>
-<body>
-  <div class="card">
-    <h1>🎧 Scan to Listen</h1>
-    <p>페이지가 열리면 자동 재생을 시도합니다. 자동 재생이 막히면 재생 버튼을 한 번 눌러 주세요.</p>
+<body style="margin:0; background:black; display:flex; justify-content:center; align-items:center; height:100vh;">
 
-    <audio id="player" controls autoplay playsinline>
-      <source src="https://www.dropbox.com/scl/fi/b1p0ft3h5hzqhujx10i0g/26E-5.mp3?rlkey=9l35orregp0zk5m3prj6cqlww&raw=1" type="audio/mpeg" />
-      브라우저가 오디오 재생을 지원하지 않습니다.
-    </audio>
+<audio id="player" controls autoplay style="width:90%; max-width:400px;"></audio>
 
-    <div class="hint">iPhone에서는 보안 정책 때문에 터치 한 번이 필요할 수 있어요.</div>
-  </div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  let src = params.get("src");
 
-  <script>
-    window.addEventListener('load', async () => {
-      const audio = document.getElementById('player');
-      try {
-        await audio.play();
-      } catch (err) {
-        console.log('Autoplay blocked:', err);
-      }
-    });
-  </script>
+  if (src) {
+    document.getElementById("player").src = src;
+  } else {
+    document.body.innerHTML = "<h2 style='color:white;'>No music selected</h2>";
+  }
+</script>
+
 </body>
 </html>
